@@ -7,7 +7,7 @@
 
 <script type="text/javascript">
 
-	var sorte = 30;
+	/*var sorte = 30;
 	var numero = 0;
 	while (numero != sorte){
 	
@@ -22,9 +22,15 @@
 		}
 	
 	}
+	*/
 	
-
-		
+	function changePhoto1() {
+		document.getElementById("foto").setAttribute("src","desert.jpg");
+	}
+	
+	function changePhoto2() {
+		document.getElementById("foto").setAttribute("src", "lighthouse.jpg");
+	}	
 
 </script>	
 
@@ -32,6 +38,6 @@
 
 </head>
 <body>
-	
+	<img src="desert.jpg" width="250" height="250" id="foto" onmouseover="changePhoto2();" onmouseout="changePhoto1();">
 </body>
 </html>

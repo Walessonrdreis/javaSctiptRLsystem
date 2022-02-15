@@ -1,0 +1,24 @@
+
+<!DOCOTYPE html>
+<html>
+
+<head>
+
+	<title>AULA 7 - JavaScript - RL System</title>
+	
+	<script type="text/javascript" src="funcoesMascaras.js"/>
+
+</head>
+<body>
+		<h3>Cadastro</h3>
+		Nome: <input type="text"/>
+		<br></br>
+		Data de Nascimento:<input type = "text" id="dateTxt" maxlength="10" onkeyup="maskDate();" />
+		<br></br>
+		CEP: <input  type="text" id="cepTxt" maxlength="11" onkeyup="maskCep();"/>
+		<br></br>
+		Telefone: <input type="text" id="telTxt"  maxlength="19" onkeyup="maskTel();"/>
+		<br></br>
+		<input type="button" value="Cadastrar">
+</body>
+</html>
