@@ -1,0 +1,6 @@
+Faça u programa para calcular o valor de uma viagem
+
+Três Variáveis 
+preço do combustível
+gasto por Km
+Distancia 
