@@ -11,7 +11,7 @@ if(number === 0){
 } else {
     console.log('No')
 }*/
- 
+
 /*
  * Faça um programa para calcular o valor de uma viagem.
 
@@ -28,20 +28,20 @@ if(number === 0){
 
 const precoEtanol = 4.30;
 const precoGasolina = 5.30;
-const isTipoCombustivel = 0;
-const litrosPorKMGgasolina = 12;
-const litrosPorKMGetanol = 15;
+const isTipoCombustivel = 'Gasolina';
+const litrosPorKM = 12;
 const distancia_em_km = 1200;
+const litrosConsumidos = distancia_em_km / litrosPorKM;
 
-if(isTipoCombustivel === precoEtanol){
-    const valorViagem = (distancia_em_km/litrosPorKMGetanol)*precoEtanol;
-    console.log('Usando Etanol, O valor gasto em combustível  na viagem foi R$ ', valorViagem.toFixed(2));
+if (isTipoCombustivel === 'Etanol') {
+    const valorViagem = litrosConsumidos * precoEtanol;
+    console.log('Usando', isTipoCombustivel, ' O valor gasto em combustível  na viagem foi R$', valorViagem.toFixed(2));
 
-}else if(isTipoCombustivel===precoGasolina){
-    const valorViagem = (distancia_em_km/litrosPorKMGgasolina)*precoGasolina;
+} else if (isTipoCombustivel === 'Gasolina') {
+    const valorViagem = litrosConsumidos * precoGasolina;
 
-    console.log('Usando gasolina, O valor da viagem foi R$ ',valorViagem.toFixed(2));
+    console.log('Usando ', isTipoCombustivel, 'O valor da viagem foi R$', valorViagem.toFixed(2));
 
-}else{
+} else {
     console.log('Não foi possível realizar a viagem;')
 }
