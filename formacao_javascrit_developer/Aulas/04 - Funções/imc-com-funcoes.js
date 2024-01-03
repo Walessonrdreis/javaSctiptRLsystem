@@ -21,12 +21,14 @@ function classificarImc(IMC){
     }
 
 }
-function main(){
+//main
+(function main(){
 const peso = 80;
 const altura = 1.78;
 const IMC = calcularImc(peso,altura);
 
 console.log(classificarImc(IMC)); 
-}
+})();
 
-main();
+//usando essa abordagem acima a função passa a ser invocada imediatamente sem a necessidade do main(); pode até remover o nome da função
+// usada principalmente na programação WEB, quando se quer isolar uma função que será usada apenas uma vez, conhecida como função anonima 

@@ -52,3 +52,45 @@ Neste exemplo:
 
 O método `toLocaleString` é especialmente útil ao lidar com valores que serão apresentados a usuários, pois adapta automaticamente a formatação conforme as configurações de idioma e região do usuário.
 
+**Função invocada imediatamente IIFE**
+Uma função invocada imediatamente, frequentemente chamada de IIFE (Immediately Invoked Function Expression), é uma construção em JavaScript que permite definir e chamar uma função imediatamente após sua criação. Isso ajuda a criar um escopo isolado para evitar poluição do escopo global e é frequentemente usado para encapsular variáveis e lógica.
+
+A sintaxe básica de uma IIFE é a seguinte:
+
+```javascript
+(function() {
+    // Código a ser executado imediatamente
+})();
+```
+
+Vamos quebrar isso em partes:
+
+- `(function() {...})`: Isso cria uma expressão de função anônima (uma função sem um nome). A função é definida entre parênteses para ser tratada como uma expressão.
+
+- `(...)` após a expressão da função: Este conjunto de parênteses invoca a função imediatamente após sua definição.
+
+Aqui está um exemplo simples de como você pode usar uma IIFE:
+
+```javascript
+(function() {
+    var mensagem = "Esta é uma IIFE!";
+    console.log(mensagem);
+})();
+```
+
+Neste exemplo, a função não tem parâmetros e apenas imprime uma mensagem no console. A IIFE envolve a função, tornando-a uma expressão, e os parênteses no final chamam imediatamente essa expressão, executando o código dentro da função.
+
+Uma razão comum para usar IIFE é criar escopos isolados para evitar vazamento de variáveis para o escopo global. Por exemplo:
+
+```javascript
+(function() {
+    var contador = 0;
+
+    // ... restante do código ...
+})();
+// "contador" não está acessível fora da IIFE
+```
+
+Assim, a variável `contador` está contida no escopo da IIFE e não polui o escopo global.
+
+Lembre-se de que, com o uso de módulos em ECMAScript 6 (ES6) e posterior, o escopo global é menos propenso a poluição, e o uso de IIFE pode ser reduzido em favor de abordagens mais modernas.
