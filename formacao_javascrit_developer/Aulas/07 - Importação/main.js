@@ -35,4 +35,4 @@ for (let i = 0; i < numerosSorteados; i++) {
   
     
 }
-print(maiorValorEncontrado);
+print(numerosSorteados);
