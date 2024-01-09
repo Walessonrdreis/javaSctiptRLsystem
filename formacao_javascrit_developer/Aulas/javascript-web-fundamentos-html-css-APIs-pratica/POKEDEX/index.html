@@ -10,6 +10,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
         <!--Nosso CSS-->
     <link rel="stylesheet" href="./assets/css/global.css">
+    <link rel="stylesheet" href="./assets/css/pokedex.css">
        <!-- Fonte Roboto-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +27,7 @@
 <body>
     <section class="content">
         <h1>Pokedex </h1>
-        <ol class="pokemons">
+        <ol id="pokemonList" class="pokemons">
             <li class="pokemon">
                 <span class="number">#001</span>
                 <span class="name">Bulbasaur
@@ -45,6 +46,8 @@
         </ol>
     </section>
     <!--Nosso JS-->
+    <script src="./assets/js/pokemon-model.js"></script><!-- Carrega o método poke-epi primeiro-->
+    <script src="./assets/js/poke-api.js"></script><!-- Carrega o método poke-epi segundo-->
     <script src="./assets/js/main.js"></script>
 </body>
 
