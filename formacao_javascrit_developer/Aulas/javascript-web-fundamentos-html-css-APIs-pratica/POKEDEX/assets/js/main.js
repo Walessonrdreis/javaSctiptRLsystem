@@ -46,25 +46,27 @@ function loadPokemonItens(offset, limit) {
 function handlePokemonClick(pokemon) {
     const body = document.body;
     body.innerHTML = `
-        <div id="pokemonDetail" >
-            <h2 class="pokeTitle" >${pokemon.name}</h2>
-            <spam class="numberPoke" > #${pokemon.number}</spam>
+        <div id="pokemonDetail" class="${pokemon.type}" >
+            <h2 class="pokeTitle" >${pokemon.name.toUpperCase()}</h2>
             <img class="pokePhoto" src="${pokemon.photo}" alt="${pokemon.name}">
-                <h3>Nome:</h3>
+            <div class="pokeDetails">
+            <spam class="numberPoke" > Número:  ${pokemon.number}</spam>
+                <h3>Nome:</h3> 
                 <spam class="pokeName" > ${pokemon.name}</spam>
-                <h3>Topo(s):</h3>
-                <ol class="types">
 
-                ${pokemon.types.map((type) => `<li class="${type}">${type}</li>`).join('')}
-                </ol>
+                <h3>Topo(s):</h3>
+                <ul class="types">
+
+                ${pokemon.types.map((type) => `<li>${type}</li>`).join('')}
+                </ul>
                 <h3>Altura:</h3>
                 <spam> ${pokemon.height / 10} m</spam>
                 <h3>Peso:</h3>
                 <spam>${pokemon.weight / 10} kg</spam>
             <h3>Status:</h3>
-            <ol>
-                ${pokemon.stats.map(stat => `<li> ${stat}</li>`).join(' ')}
-            </ol>
+            <table>
+                ${pokemon.stats.map(stat => ` ${stat}`).join(' ')}
+            </table>
             <h3>Movimentos:</h3>
             <ol>
                 ${pokemon.moves.map(move => `<li> ${move}</li>`).join(' ')}
@@ -72,11 +74,13 @@ function handlePokemonClick(pokemon) {
             
             <h3>Habilidades:</h3>
             <ul>
-               <!${pokemon.abilities.map((ability) => `<li>${ability}</li>`).join('')}
+               ${pokemon.abilities.map((ability) => `<li>${ability}</li>`).join('')}
             </ul>
             <h3>Geração: #1</h3>
             
                 ${`<img src ="${pokemon.versions.generation_i.red_blue.front_gray}">`}
+            
+            </div>
           
         
                 <button onclick="voltar()">Voltar</button>

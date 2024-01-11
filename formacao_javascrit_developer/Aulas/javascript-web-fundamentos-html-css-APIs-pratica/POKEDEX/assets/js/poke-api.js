@@ -24,11 +24,22 @@ function convertPokemonApiDetailToPokemon(pokeDetail){
    const stats = pokeDetail.stats.map((statsSlot) =>{
     const name = statsSlot.stat.name
     const base_stat = statsSlot.base_stat
-    return `${name.toUpperCase()}: ${base_stat}`
+    return `<thead>
+        <tr>
+            <th>${name.toUpperCase()}</th>
+        </tr>
+            </thead>
+            <tbody>
+        <tr>
+            <td>${base_stat}</td>
+        </tr>
+            </tbody>
+        `
+            
    });
    pokemon.stats = stats;
 
-    const abilities = pokeDetail.abilities.map((abilitySlot) => abilitySlot.ability.name)
+    const abilities = pokeDetail.abilities.map((abilitySlot) => abilitySlot.ability.name.toUpperCase()) //
     pokemon.abilities = abilities;
   
     return pokemon;

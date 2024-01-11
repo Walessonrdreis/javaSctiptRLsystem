@@ -144,7 +144,47 @@
     border-radius: 1rem;
     
 }
-   
+
+#pokemonDetail{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 1rem auto;
+    width: 90%;
+    color: aliceblue;
+    
+  
+ 
+}
+.pokeDetails{
+    display: grid;
+    grid-template-columns: 1fr ;
+    margin: 2rem auto;
+}
+
+.pokeDetails ol, .pokeDetails ul {
+    padding: 0;
+}
+
+.pokeDetails *{
+    margin: 0 0 .625rem .25rem;
+  
+}
+.pokeDetails table, .pokeDetails th, .pokeDetails td {
+   text-align: center;
+    border: 1px solid;
+    border-radius: .25rem;
+    width: 100%;
+}
+
+#pokemonDetail .pokeTitle{
+ text-align: center;
+}
+#pokemonDetail .pokePhoto{
+    width: 80%;
+    margin: 1rem auto;
+}
+
 
 
 
