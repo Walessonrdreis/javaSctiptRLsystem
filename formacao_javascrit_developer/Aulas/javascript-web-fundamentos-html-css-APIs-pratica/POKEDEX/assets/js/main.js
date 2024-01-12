@@ -3,8 +3,7 @@ const pokemonList = document.getElementById('pokemonList')
 const loadMoreButton = document.getElementById('loadMoreButton')
 const pokemonContainer = document.getElementById('pokemonContainer')
 const maxRecords = 151;
-const limit = 1
-;
+const limit = 6;
 let offset = 0;
 
 
@@ -40,50 +39,108 @@ function loadPokemonItens(offset, limit) {
         });
     });
 }
-
 // Função chamada quando um Pokémon é clicado
 // Função chamada quando um Pokémon é clicado
 function handlePokemonClick(pokemon) {
+
+    const mappedVersions = [];
+
+    for (const generation in pokemon.versions) {
+        if (pokemon.versions.hasOwnProperty(generation)) {
+            const formattedGeneration = generation.replace(/-/g, ' ').toUpperCase();
+            const versionsDetails = [];
+
+            for (const version in pokemon.versions[generation]) {
+                if (pokemon.versions[generation].hasOwnProperty(version)) {
+                    const details = pokemon.versions[generation][version].details;
+                    const frontDefaultUrl = pokemon.versions[generation][version].front_default;
+
+                    // Adicionar a tag <img> com a URL e o nome da versão
+                    const versionInfo = details ? `${version}: ${details}` : version;
+                    versionsDetails.push(`
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>${versionInfo}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img class="imgGenerations" src="${frontDefaultUrl}" alt="${version} Image"></td>
+                            </tr>
+                    
+                        </tbody>
+                    
+                    </table>`);
+                }
+            }
+
+            const formattedGenerationString = `<h3>${formattedGeneration}</h3> 
+            <ul>
+            <li>${versionsDetails.join('</li><li>')}
+            </li>
+            </ul>`;
+
+            mappedVersions.push(formattedGenerationString);
+        }
+    }
+
     const body = document.body;
     body.innerHTML = `
         <div id="pokemonDetail" class="${pokemon.type}" >
             <h2 class="pokeTitle" >${pokemon.name.toUpperCase()}</h2>
             <img class="pokePhoto" src="${pokemon.photo}" alt="${pokemon.name}">
             <div class="pokeDetails">
-            <spam class="numberPoke" > Número:  ${pokemon.number}</spam>
-                <h3>Nome:</h3> 
-                <spam class="pokeName" > ${pokemon.name}</spam>
+                <h3>Detalhes</h3>
 
-                <h3>Topo(s):</h3>
-                <ul class="types">
-
-                ${pokemon.types.map((type) => `<li>${type}</li>`).join('')}
-                </ul>
-                <h3>Altura:</h3>
-                <spam> ${pokemon.height / 10} m</spam>
-                <h3>Peso:</h3>
-                <spam>${pokemon.weight / 10} kg</spam>
+                <table class="tbDetails">
+                    <thead>
+                        <tr class="${pokemon.type}">
+                            <th>Número:</th>
+                            <th>Nome:</th>
+                    
+                            <th>Altura:</th>
+                            <th>Peso</th>
+                            <th>Tipo(s):</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="pokeName">#${pokemon.number}</td>
+                            <td class="pokeName">${pokemon.name}</td>
+                            <td class="pokeHight">${pokemon.height = (pokemon.height / 10).toFixed(2)}</td>
+                            <td> ${pokemon.weight = (pokemon.weight / 10).toFixed(2)}Kg</td>
+                            <td> ${pokemon.types.map((type) => `${type}`).join('\n')}</td>
+                    </tbody>
+                </table> 
+                
             <h3>Status:</h3>
             <table>
                 ${pokemon.stats.map(stat => ` ${stat}`).join(' ')}
             </table>
             <h3>Movimentos:</h3>
-            <ol>
-                ${pokemon.moves.map(move => `<li> ${move}</li>`).join(' ')}
+            <ol class="listMoves">
+                ${pokemon.moves.map(move => `<li class="listMove"> ${move.toUpperCase()}</li>`).join(' ')}
             </ol>
             
-            <h3>Habilidades:</h3>
+            <table>
+            <thead>
+            <tr>
+            <th>HABILIDADES</th>
+            </tr>
+            </thead>
+            
+            ${pokemon.abilities.map((ability) => `${ability}`).join('')}
+            
+            </table>
             <ul>
-               ${pokemon.abilities.map((ability) => `<li>${ability}</li>`).join('')}
             </ul>
-            <h3>Geração: #1</h3>
-            
-                ${`<img src ="${pokemon.versions.generation_i.red_blue.front_gray}">`}
-            
+            <h3>GERAÇÕES </h3>
+                ${`${mappedVersions}`}
             </div>
           
         
-                <button onclick="voltar()">Voltar</button>
+                <button class="btnReturn ${pokemon.type}" onclick="voltar()"> <i  class=" material-icons">home</i></button>
 
         </div>
     `;
@@ -95,18 +152,18 @@ function voltar() {
     location.reload(); // Atualiza a página, você pode ajustar conforme necessário
 }
 
-loadPokemonItens(offset,limit);
+loadPokemonItens(offset, limit);
 
-loadMoreButton.addEventListener('click',() =>{
+loadMoreButton.addEventListener('click', () => {
     offset += limit;
     const qtdRecordsWithNexPage = offset + limit
 
-    if(qtdRecordsWithNexPage >= maxRecords){
+    if (qtdRecordsWithNexPage >= maxRecords) {
         const newLimit = maxRecords - offset
-        loadPokemonItens(offset,newLimit)
+        loadPokemonItens(offset, newLimit)
         loadMoreButton.parentElement.removeChild(loadMoreButton)
-    }else{
-        loadPokemonItens(offset,limit)
+    } else {
+        loadPokemonItens(offset, limit)
     }
 })
 
