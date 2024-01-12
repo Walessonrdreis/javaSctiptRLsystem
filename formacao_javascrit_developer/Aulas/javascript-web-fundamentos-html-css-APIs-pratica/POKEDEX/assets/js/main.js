@@ -42,53 +42,67 @@ function loadPokemonItens(offset, limit) {
 // Função chamada quando um Pokémon é clicado
 // Função chamada quando um Pokémon é clicado
 function handlePokemonClick(pokemon) {
+    const mappedVersions = mapVersions(pokemon);
+    const bodyContent = generateBodyContent(pokemon, mappedVersions);
+    renderContent(bodyContent);
+}
 
+function mapVersions(pokemon) {
     const mappedVersions = [];
 
     for (const generation in pokemon.versions) {
         if (pokemon.versions.hasOwnProperty(generation)) {
-            const formattedGeneration = generation.replace(/-/g, ' ').toUpperCase();
-            const versionsDetails = [];
-
-            for (const version in pokemon.versions[generation]) {
-                if (pokemon.versions[generation].hasOwnProperty(version)) {
-                    const details = pokemon.versions[generation][version].details;
-                    const frontDefaultUrl = pokemon.versions[generation][version].front_default;
-
-                    // Adicionar a tag <img> com a URL e o nome da versão
-                    const versionInfo = details ? `${version}: ${details}` : version;
-                    versionsDetails.push(`
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>${versionInfo}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><img class="imgGenerations" src="${frontDefaultUrl}" alt="${version} Image"></td>
-                            </tr>
-                    
-                        </tbody>
-                    
-                    </table>`);
-                }
-            }
+            const formattedGeneration = formatGeneration(generation);
+            const versionsDetails = mapVersionDetails(pokemon.versions[generation]);
 
             const formattedGenerationString = `<h3>${formattedGeneration}</h3> 
-            <ul>
-            <li>${versionsDetails.join('</li><li>')}
-            </li>
-            </ul>`;
+                <ul>
+                    <li>${versionsDetails.join('</li><li>')}</li>
+                </ul>`;
 
             mappedVersions.push(formattedGenerationString);
         }
     }
 
-    const body = document.body;
-    body.innerHTML = `
+    return mappedVersions;
+}
+
+function formatGeneration(generation) {
+    return generation.replace(/-/g, ' ').toUpperCase();
+}
+
+function mapVersionDetails(versionDetails) {
+    const detailsArray = [];
+
+    for (const version in versionDetails) {
+        if (versionDetails.hasOwnProperty(version)) {
+            const details = versionDetails[version].details;
+            const frontDefaultUrl = versionDetails[version].front_default;
+
+            const versionInfo = details ? `${version}: ${details}` : version;
+            detailsArray.push(`
+                <table>
+                    <thead>
+                        <tr>
+                            <th>${versionInfo}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img class="imgGenerations" src="${frontDefaultUrl}" alt="${version} Image"></td>
+                        </tr>
+                    </tbody>
+                </table>`);
+        }
+    }
+
+    return detailsArray;
+}
+
+function generateBodyContent(pokemon, mappedVersions) {
+    return `
         <div id="pokemonDetail" class="${pokemon.type}" >
-            <h2 class="pokeTitle" >${pokemon.name.toUpperCase()}</h2>
+            <h2 class="pokeTitle">${pokemon.name.toUpperCase()}</h2>
             <img class="pokePhoto" src="${pokemon.photo}" alt="${pokemon.name}">
             <div class="pokeDetails">
                 <h3>Detalhes</h3>
@@ -98,7 +112,6 @@ function handlePokemonClick(pokemon) {
                         <tr class="${pokemon.type}">
                             <th>Número:</th>
                             <th>Nome:</th>
-                    
                             <th>Altura:</th>
                             <th>Peso</th>
                             <th>Tipo(s):</th>
@@ -108,45 +121,47 @@ function handlePokemonClick(pokemon) {
                         <tr>
                             <td class="pokeName">#${pokemon.number}</td>
                             <td class="pokeName">${pokemon.name}</td>
-                            <td class="pokeHight">${pokemon.height = (pokemon.height / 10).toFixed(2)}</td>
-                            <td> ${pokemon.weight = (pokemon.weight / 10).toFixed(2)}Kg</td>
-                            <td> ${pokemon.types.map((type) => `${type}`).join('\n')}</td>
+                            <td class="pokeHight">${(pokemon.height / 10).toFixed(2)}</td>
+                            <td>${(pokemon.weight / 10).toFixed(2)}Kg</td>
+                            <td>${pokemon.types.map((type) => `${type}`).join(', ')}</td>
+                        </tr>
                     </tbody>
                 </table> 
                 
-            <h3>Status:</h3>
-            <table>
-                ${pokemon.stats.map(stat => ` ${stat}`).join(' ')}
-            </table>
-            <h3>Movimentos:</h3>
-            <ol class="listMoves">
-                ${pokemon.moves.map(move => `<li class="listMove"> ${move.toUpperCase()}</li>`).join(' ')}
-            </ol>
-            
-            <table>
-            <thead>
-            <tr>
-            <th>HABILIDADES</th>
-            </tr>
-            </thead>
-            
-            ${pokemon.abilities.map((ability) => `${ability}`).join('')}
-            
-            </table>
-            <ul>
-            </ul>
-            <h3>GERAÇÕES </h3>
-                ${`${mappedVersions}`}
+                <h3>Status:</h3>
+                <table>${pokemon.stats.map(stat => `<tr><td>${stat}</td></tr>`).join('')}</table>
+                
+                <h3>Movimentos:</h3>
+                <ol class="listMoves">${pokemon.moves.map(move => `<li class="listMove">${move.toUpperCase()}</li>`).join('')}</ol>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>HABILIDADES</th>
+                        </tr>
+                    </thead>
+                    ${pokemon.abilities.map((ability) => `<tr><td>${ability}</td></tr>`).join('')}
+                </table>
+                
+                <h3>GERAÇÕES</h3>
+                ${mappedVersions.join('')}
             </div>
-          
-        
-                <button class="btnReturn ${pokemon.type}" onclick="voltar()"> <i  class=" material-icons">home</i></button>
-
+            
+            <button class="btnReturn ${pokemon.type}" onclick="voltar()"> <i class="material-icons">home</i></button>
         </div>
     `;
-
-    // Adicione aqui o código adicional que deseja executar quando um Pokémon é clicado
 }
+
+function renderContent(content) {
+    const body = document.body;
+    body.innerHTML = content;
+}
+
+function voltar() {
+    // Redireciona para a página principal ou realiza a ação desejada
+    location.reload(); // Atualiza a página, você pode ajustar conforme necessário
+}
+
 function voltar() {
     // Redireciona para a página principal ou realiza a ação desejada
     location.reload(); // Atualiza a página, você pode ajustar conforme necessário
