@@ -29,4 +29,5 @@ while ( contador < paises.length ) {
 const idade =24;
 const novaIdade = idad + 1;
 window.fetch;
+//teste 
 
