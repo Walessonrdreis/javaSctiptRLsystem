@@ -1,10 +1,10 @@
 {
-  "name": "devmedia",
+  "name": "javascript_assertivo_tests",
   "version": "1.0.0",
   "description": "",
-  "main": "Estruturas_repeticao.js",
+  "main": "test01.js",
   "scripts": {
-    "lint": "npx eslint .",
+    "lint": "npx eslint ./01-eslint-funcionando.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -16,6 +16,6 @@
     "globals": "^15.9.0"
   },
   "dependencies": {
-    "devmedia": "file:"
+    "javascript_assertivo_tests": "file:"
   }
 }
