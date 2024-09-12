@@ -1,5 +1,9 @@
 // Asserção de test
-const verifiqueQue = (valor) =>{
+const checkThat = (value) =>{
+    // Precisa retorna um objeto
+        const assertions = {};
+
+        return assertions;
 
 };
 
