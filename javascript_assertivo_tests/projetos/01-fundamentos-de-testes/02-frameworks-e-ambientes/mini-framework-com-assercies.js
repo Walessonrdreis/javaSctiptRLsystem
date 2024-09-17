@@ -1,19 +1,14 @@
 // Asserção de test
-const checkThat = (value) =>{
+const verifiqueQue = (value) =>{
     // Precisa retorna um objeto
         const assertions = {
 
-            //função ehExaamenteIgualA
-            andExactTheSameAs(esperado){
-                if  (valor  ===  esperado)  {
-
-                    console .log(`✅ ${titulo} Teste  passou`);
+            //função ehExamenteIgualA
+            ehExatamenteIgualA(esperado){
+                if  (value  !==  esperado)  {
+                    throw{};
             
-              }  else  {
-            
-                    console .error(`🚨 ${titulo} Ih,  deu  ruim...`);
-            
-              }
+              } 
 
             }
         };
@@ -22,19 +17,39 @@ const checkThat = (value) =>{
 
 };
 //Refatoração da  função teste 
-const  teste  =  (titulo,  esperado,  retornado)  =>  {
-
-    if  (esperado  ===  retornado)  {
-
-        console .log(`✅ ${titulo} Teste  passou`);
-
-  }  else  {
-
+const  teste  =  (titulo,  functionTeste)  =>  {
+    try {
+    functionTeste();
+    console .log(`✅ ${titulo} Teste  passou`);
+        
+    } catch (error) {
         console .error(`🚨 ${titulo} Ih,  deu  ruim...`);
+        
+    }
+    const somaHorasExtras = (salario,valorHorasExtras) => {
+        return (salario + valorHorasExtras);
+    }
+    
+    const calcularDesconto = (salario,valorDesconto) => {
+        return salario - valorDesconto;
+    }
 
-  }
 
 }
+
+teste('somaHorasExtras',() =>{
+    const esperado = 10;
+    const retornado = somaHorasExtras(5,5);
+
+    verifiqueQue(retornado).ehExatamenteIgualA(esperado);
+
+});
+
+teste('calcularDesconto',() =>{
+    const esperado = 5;
+    const retornado = calcularDesconto(10,5)
+
+});
 
 
 
