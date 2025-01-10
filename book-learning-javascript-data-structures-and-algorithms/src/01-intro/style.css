@@ -1,0 +1,22 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1em;
+    height: 100vh;
+    color: beige;
+    font-weight: bold;
+    font-size: 1.5em;
+    background: #676464;
+    font-family: Arial, sans-serif;
+}
+div{
+    border: 1px solid #9c8181;
+    display: grid;
+    justify-content: center;
+    place-items: center;
+    grid-template-columns: auto;
+    padding: 10px;
+    gap: 5em;
+}
